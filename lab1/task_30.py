@@ -23,10 +23,7 @@ def task_9_3():
         b -= 2
     b = a
     b -= 2
-    while not wall_is_on_the_left():
-        move_left()
-    while not wall_is_above():
-        move_up()
+    moving_left_up()
     while b > 0:
         for i in range(b):
             move_down()
@@ -37,10 +34,7 @@ def task_9_3():
         b -= 2
     b = a
     b -= 2
-    while not wall_is_on_the_right():
-        move_right()
-    while not wall_is_above():
-        move_up()
+    moving_right_up()
     while b > 0:
         for i in range(b):
             move_down()
@@ -51,10 +45,7 @@ def task_9_3():
         b -= 2
     b = a
     b -= 2
-    while not wall_is_on_the_left():
-        move_left()
-    while not wall_is_beneath():
-        move_down()
+    moving_left_down()
     while b > 0:
         for i in range(b):
             move_right()
@@ -63,9 +54,29 @@ def task_9_3():
             move_left()
         move_up()
         b -= 2
+    moving_left_down()
+
+
+def moving_left_down():
     while not wall_is_on_the_left():
         move_left()
     while not wall_is_beneath():
         move_down()
+
+
+def moving_left_up():
+    while not wall_is_on_the_left():
+        move_left()
+    while not wall_is_above():
+        move_up()
+
+
+def moving_right_up():
+    while not wall_is_on_the_right():
+        move_right()
+    while not wall_is_above():
+        move_up()
+
+
 if __name__ == '__main__':
     run_tasks()
