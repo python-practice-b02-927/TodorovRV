@@ -10,6 +10,8 @@ def task_2_2():
         move_right(n=4)
         move_up()
     krest()
+
+
 def krest():
     move_right()
     move_down()
@@ -25,6 +27,7 @@ def krest():
     fill_cell()
     move_up(n=2)
     move_left()
+
 
 if __name__ == '__main__':
     run_tasks()
