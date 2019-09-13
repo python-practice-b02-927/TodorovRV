@@ -8,7 +8,7 @@ def task_8_10():
     while not wall_is_on_the_right():
         filling()
         move_right()
-    up()
+    filling()
 
 
 def filling():
