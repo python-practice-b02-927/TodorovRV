@@ -1,3 +1,5 @@
-import turtle
+import turtle as t
 
-turtle.circle(100)
+for i in range(360):
+    t.left(1)
+    t.forward(1)
