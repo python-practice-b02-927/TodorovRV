@@ -3,16 +3,16 @@ import math as m
 
 dt = 0.2
 r = 5
-n = 1
+n = 2
 i = 0
 SIZE_X = 1000
 SIZE_Y = 1000
 L = []
 T = ()
-
 L.append(1)
 L.append('abx')
 t = tuple(L)
+st = []
 x = []
 y = []
 a = []
@@ -31,6 +31,7 @@ def coords():
         x[i] = int(input())
         y[i] = int(input())
         ob.append(0)
+        st.append(0)
 
 
 def star(r):
@@ -40,31 +41,39 @@ def star(r):
 
 
 def obj(r):
+    stop = 0
     for i in range(n):
         ob[i] = g.Circle(g.Point(x[i], y[i]), 2)
         ob[i].setFill('yellow')
         ob[i].draw(w)
-        a[i] = m.atan((x[i]/y[i]))
+        a[i] = m.atan(((500 - x[i])/(500 - y[i])))
 
     while True:
         for i in range(n):
             dx = v[i] * m.sin(a[i]) * dt
             dy = v[i] * m.cos(a[i]) * dt
-            if (x[i] - dx) < (500 - r*m.cos(a[i])):
-                x[i] -= dx
-                y[i] -= dy
+            if (x[i] - dx) < (500 - r*m.sin(a[i])):
+                x[i] += dx
+                y[i] += dy
                 ob[i].move(dx, dy)
                 v[i] += accel * dt
             else:
+                if st[i] == 1:
+                    continue
                 r += 20
                 star(r)
+                stop += 1
+                st[i] = 1
         g.time.sleep(0.05)
+        if stop == n:
+            break
 
 
 def main():
     coords()
     star(r)
     obj(r)
+    g.time.sleep(5)
 
 
 main()
