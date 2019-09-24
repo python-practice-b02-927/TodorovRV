@@ -18,7 +18,7 @@ y = []
 a = []
 v = []
 ob = []
-accel = 1
+accel0 = 1000
 w = g.GraphWin("Model", SIZE_X, SIZE_Y)
 
 
@@ -56,6 +56,7 @@ def obj(r):
                 x[i] += dx
                 y[i] += dy
                 ob[i].move(dx, dy)
+                accel = accel0 / ((500 - x[i]) ** 2 + (500 - y[i]) ** 2)
                 v[i] += accel * dt
             else:
                 if st[i] == 1:
@@ -64,7 +65,7 @@ def obj(r):
                 star(r)
                 stop += 1
                 st[i] = 1
-        g.time.sleep(0.05)
+        g.time.sleep(0.0005)
         if stop == n:
             break
 
