@@ -5,6 +5,10 @@ import random as ran
 
 n = int(input())
 r = 5
+# dt - time interval between frames
+dt = 1
+# accel = acceleration
+accel0 = 1000
 # st - object status: 1 - object have fallen on star, 0 - object falling on star
 st = []
 x = []
@@ -50,12 +54,90 @@ def objects(n):
 
 
 """this function move objects"""
-def object_movement():
+def object_movement(r):
     objects(n)
+    stop = 0
+    while True:
+        for i in range(n):
+            if x[i] <= 500 and y[i] <= 500:
+                dx = vel[i] * m.sin(alpha[i]) * dt
+                dy = vel[i] * m.cos(alpha[i]) * dt
+                if (x[i] + dx) < (500 - r * m.sin(alpha[i])):
+                    x[i] += dx
+                    y[i] += dy
+                    object[i].move(dx, dy)
+                    accel = accel0 / ((500 - x[i]) ** 2 + (500 - y[i]) ** 2)
+                    vel[i] += accel * dt
+                else:
+                    if st[i] == 1:
+                        continue
+                    r += 1
+                    star(r)
+                    stop += 1
+                    st[i] = 1
+                    object[i].move(500 - x[i], 500 - y[i])
+
+            if x[i] >= 500 and y[i] >= 500:
+                dx = vel[i] * m.sin(alpha[i]) * dt
+                dy = vel[i] * m.cos(alpha[i]) * dt
+                if (x[i] - dx) > (500 + r * m.sin(alpha[i])):
+                    x[i] -= dx
+                    y[i] -= dy
+                    object[i].move(-dx, -dy)
+                    accel = accel0 / ((-500 + x[i]) ** 2 + (-500 + y[i]) ** 2)
+                    vel[i] += accel * dt
+                else:
+                    if st[i] == 1:
+                        continue
+                    r += 1
+                    star(r)
+                    stop += 1
+                    st[i] = 1
+                    object[i].move(500 - x[i], 500 - y[i])
+
+            if x[i] < 500 and y[i] > 500:
+                dx = vel[i] * m.sin(alpha[i]) * dt
+                dy = vel[i] * m.cos(alpha[i]) * dt
+                if (x[i] + dx) < (500 - r * m.sin(alpha[i])):
+                    x[i] += dx
+                    y[i] -= dy
+                    object[i].move(dx, -dy)
+                    accel = accel0 / ((-500 + x[i]) ** 2 + (-500 + y[i]) ** 2)
+                    vel[i] += accel * dt
+                else:
+                    if st[i] == 1:
+                        continue
+                    r += 1
+                    star(r)
+                    stop += 1
+                    st[i] = 1
+                    object[i].move(500 - x[i], 500 - y[i])
+
+            if x[i] > 500 and y[i] < 500:
+                dx = vel[i] * m.sin(alpha[i]) * dt
+                dy = vel[i] * m.cos(alpha[i]) * dt
+                if (x[i] - dx) > (500 + r * m.sin(alpha[i])):
+                    x[i] -= dx
+                    y[i] += dy
+                    object[i].move(-dx, dy)
+                    accel = accel0 / ((-500 + x[i]) ** 2 + (-500 + y[i]) ** 2)
+                    vel[i] += accel * dt
+                else:
+                    if st[i] == 1:
+                        continue
+                    r += 1
+                    star(r)
+                    stop += 1
+                    st[i] = 1
+                    object[i].move(500 - x[i], 500 - y[i])
+        g.time.sleep(0.0005)
+        if stop == n:
+            break
+    return r
 
 
 """this function draw star explosion"""
-def boom():
+def boom(r):
     for i in range(100):
         star = g.Circle(g.Point(500, 500), (r + i))
         star.setFill('orange')
@@ -71,9 +153,9 @@ def boom():
 def main():
     coords()
     star(r)
-    object_movement()
+    r1 = object_movement(r)
     g.time.sleep(3)
-    boom()
+    boom(r1)
 
 
 main()
