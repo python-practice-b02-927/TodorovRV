@@ -16,6 +16,7 @@ object = []
 w = g.GraphWin("Model", 1000, 1000)
 
 
+"""this function get coordinates of objects"""
 def coords():
     n = int(input())
     for i in range(n):
@@ -29,6 +30,7 @@ def coords():
         st.append(0)
 
 
+"""this function draw star"""
 def star(r):
     star = g.Circle(g.Point(500, 500), r)
     star.setFill('yellow')
@@ -39,8 +41,18 @@ def object_movement():
     pass
 
 
+"""this function draw star explosion"""
 def boom():
-    pass
+    for i in range(100):
+        star = g.Circle(g.Point(500, 500), (r + i))
+        star.setFill('orange')
+        star.draw(w)
+        g.time.sleep(0.00001)
+    for j in range(600):
+        star = g.Circle(g.Point(500, 500), (r + i + j))
+        star.setFill('red')
+        star.draw(w)
+        g.time.sleep(0.00001)
 
 
 def main():
