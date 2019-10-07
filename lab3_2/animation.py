@@ -3,6 +3,7 @@ import math as m
 import random as ran
 
 
+n = int(input())
 r = 5
 # st - object status: 1 - object have fallen on star, 0 - object falling on star
 st = []
@@ -18,7 +19,6 @@ w = g.GraphWin("Model", 1000, 1000)
 
 """this function get coordinates of objects"""
 def coords():
-    n = int(input())
     for i in range(n):
         x.append(0)
         y.append(0)
@@ -37,8 +37,21 @@ def star(r):
     star.draw(w)
 
 
+"""this function draw objects"""
+def objects(n):
+    for i in range(n):
+        object[i] = g.Circle(g.Point(x[i], y[i]), 2)
+        object[i].setFill('brown')
+        object[i].draw(w)
+        if y[i] != 500:
+            alpha[i] = abs(m.atan(((500 - x[i]) / (500 - y[i]))))
+        else:
+            alpha[i] = abs(m.atan(((500 - x[i]) / 0.00000001)))
+
+
+"""this function move objects"""
 def object_movement():
-    pass
+    objects(n)
 
 
 """this function draw star explosion"""
