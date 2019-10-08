@@ -43,7 +43,9 @@ def click(event):
     global ball, score
     x0 = event.x
     y0 = event.y
-    for i in range(len(ball) - 1):
+    a = len(ball)
+    i = 0
+    while i < a:
         if ball[i]['shape'] == 'circle':
             if m.fabs(x0 - ball[i]['x']) ** 2 + m.fabs(y0 - ball[i]['y']) ** 2 < ball[i]['r'] ** 2:
                 score += m.floor(1 / ball[i]['r'] / (m.floor(m.fabs(x0 - ball[i]['x']) ** 2) + 1 +
@@ -51,6 +53,8 @@ def click(event):
                 l['text'] = 'Score: ' + str(score)
                 canv.delete(ball[i]['id'])
                 del ball[i]
+                a -= 1
+                continue
         if ball[i]['shape'] == 'square':
             if (m.fabs(x0 - ball[i]['x']) < ball[i]['r']) & (m.fabs(y0 - ball[i]['y']) < ball[i]['r']):
                 score += m.floor(1 / ball[i]['r'] / (m.floor(m.fabs(x0 - ball[i]['x']) ** 2) + 1 +
@@ -58,11 +62,13 @@ def click(event):
                 l['text'] = 'Score: ' + str(score)
                 canv.delete(ball[i]['id'])
                 del ball[i]
+                a -= 1
+        i += 1
 
 
 def movement():
     global ball
-    for i in range(len(ball) - 1):
+    for i in range(len(ball)):
         if (ball[i]['x'] + ball[i]['vx'] > 800) | (ball[i]['x'] + ball[i]['vx'] < 0):
             ball[i]['vx'] = -ball[i]['vx']
         if (ball[i]['y'] + ball[i]['vy'] > 600) | (ball[i]['y'] + ball[i]['vy'] < 0):
