@@ -46,15 +46,15 @@ def click(event):
     for i in range(len(ball) - 1):
         if ball[i]['shape'] == 'circle':
             if m.fabs(x0 - ball[i]['x']) ** 2 + m.fabs(y0 - ball[i]['y']) ** 2 < ball[i]['r'] ** 2:
-                score += m.floor(ball[i]['r'] / (m.floor(m.fabs(x0 - ball[i]['x']) ** 2) + 1 +
-                                                 m.floor((m.fabs(y0 - ball[i]['y'])) ** 2)) * 100)
+                score += m.floor(1 / ball[i]['r'] / (m.floor(m.fabs(x0 - ball[i]['x']) ** 2) + 1 +
+                                                 m.floor((m.fabs(y0 - ball[i]['y'])) ** 2)) * 150000)
                 l['text'] = 'Score: ' + str(score)
                 canv.delete(ball[i]['id'])
                 del ball[i]
         if ball[i]['shape'] == 'square':
             if (m.fabs(x0 - ball[i]['x']) < ball[i]['r']) & (m.fabs(y0 - ball[i]['y']) < ball[i]['r']):
-                score += m.floor(ball[i]['r'] / (m.floor(m.fabs(x0 - ball[i]['x']) ** 2) + 1 +
-                                                 m.floor((m.fabs(y0 - ball[i]['y'])) ** 2)) * 100)
+                score += m.floor(1 / ball[i]['r'] / (m.floor(m.fabs(x0 - ball[i]['x']) ** 2) + 1 +
+                                                 m.floor((m.fabs(y0 - ball[i]['y'])) ** 2)) * 75000)
                 l['text'] = 'Score: ' + str(score)
                 canv.delete(ball[i]['id'])
                 del ball[i]
