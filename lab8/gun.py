@@ -24,6 +24,7 @@ class Ball():
         self.vx = 0
         self.vy = 0
         self.g = 2
+        self.life = 0
         self.color = choice(['blue', 'green', 'red', 'brown'])
         self.id = canv.create_oval(
             self.x - self.r,
@@ -211,9 +212,14 @@ def new_game():
     while True:
         t1.movement()
         t2.movement()
-        if t1.live or balls:
+        if balls:
             for b in balls:
                 b.move()
+                if b.life == 200:
+                    b.dell()
+                    balls.pop(balls.index(b))
+                else:
+                    b.life += 1
                 if b.hittest(t1) and t1.live:
                     t1.live = 0
                     t1.hit()
